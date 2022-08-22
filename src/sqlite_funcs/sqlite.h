@@ -1,0 +1,1 @@
+bool store(float* data, int size);
