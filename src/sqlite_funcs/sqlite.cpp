@@ -136,8 +136,10 @@ bool store(float* data, int size)
     sqlite3* db = opendb(file.c_str());
     if(db!=nullptr)
     {
-        char* table_create = "create table rand(id int, randNo float)";
-        run_command(db,table_create);
+        //char* table_create = "create table rand(id int, randNo float)";
+        std::string table_create = "create table rand(id int, randNo float)";
+        run_command(db,table_create.c_str());
+
         std::string id, rand, final;
         for(int i=0;i<size;i++)
         {
@@ -148,8 +150,10 @@ bool store(float* data, int size)
             final = "insert into rand values(" + id + ", " + rand + ");";
             std::cout<<final<<"\n";
             run_command(db, final.c_str());
-            delete a;
-            delete b;
+
+            // if u r not using new key word to allocate mem, dont use delete
+            a = nullptr;
+            b = nullptr;
             id.clear();
             rand.clear();
             final.clear();
